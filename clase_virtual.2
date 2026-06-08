@@ -1,0 +1,84 @@
+1. Instalación y configuración del plugin de auditoría
+
+//buscar en esta ruta el archivo server_audit.so
+SHOW GLOBAL VARIABLES LIKE 'plugin_dir';
+//MAYÚSCULAS hasta las comillas simples
+
+
+//verificar que el plugin de auditoría esté instalado y activo
+SHOW PLUGINS;
+//buscar SERVER_AUDIT en el resultado
+
+
+//para instalar el plugin
+INSTALL SONAME 'server_audit';
+
+
+//para desinstalar el plugin
+UNINSTALL SONAME 'server_audit';
+
+
+//encender la auditoría
+SET GLOBAL server_audit_logging=ON;
+
+
+//configurar la ruta donde se almacenarán los logs
+SET GLOBAL server_audit_file_path='ruta/AA/configurar/revisar/captura.log';
+
+
+//ejemplo de ruta
+SET GLOBAL server_audit_file_path='/var/log/audit/audit.log';
+
+
+//indicar los tipos de eventos a auditar
+SET GLOBAL server_audit_events='CONNECT,QUERY,TABLE';
+
+
+//CONNECT = registra conexiones y desconexiones
+//QUERY = registra consultas SQL ejecutadas
+//TABLE = registra operaciones realizadas sobre tablas
+
+
+//mostrar la configuración actual del plugin
+SHOW VARIABLES LIKE 'server_audit%';
+
+2. Verificación de ubicación y archivos de auditoría
+
+//mostrar el nombre o ruta configurada para el log
+SHOW VARIABLES LIKE 'server_audit_file_path';
+
+
+//mostrar el directorio de datos del servidor
+SHOW VARIABLES LIKE 'datadir';
+
+
+//si server_audit_file_path devuelve solamente:
+// server_audit.log
+//el archivo se guarda dentro del datadir
+
+
+//en esta instalación:
+//server_audit_file_path = server_audit.log
+//datadir = /opt/lampp/var/mysql/
+
+
+//por lo tanto el log real se encuentra en:
+// /opt/lampp/var/mysql/server_audit.log
+
+
+//verificar desde la terminal
+ls /opt/lampp/var/mysql/server_audit.log
+
+
+//ver el contenido del log
+cat /opt/lampp/var/mysql/server_audit.log
+
+
+//ver eventos en tiempo real
+tail -f /opt/lampp/var/mysql/server_audit.log
+
+
+//nota:
+//la ruta /var/log/audit/audit.log no existía en esta instalación,
+//por lo que fue necesario localizar el archivo mediante
+//server_audit_file_path y datadir
