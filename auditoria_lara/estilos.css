@@ -1,0 +1,16 @@
+body{
+    background-image: url('fondo1.jpg');  /*este fondo se repite porque esta en el body*/
+    background-size: cover;
+    background-repeat: no-repeat; /*tenia el problema de que se me repetia el fondo abajo, esto lo soluciona*/
+    min-height: 400px; /* estos son ajustes por los bordes y tambien del texto principal*/
+    padding: 30px;
+    color: rgb(224, 250, 222);
+    text-align: center;
+}
+
+.fondo2 {
+    background-image: url('fondo2.jpg'); /* queria otro fondo que hiciera contraste con la datatable*/
+    background-size: cover;
+    min-height: 400px;
+    padding: 10px;
+}
